@@ -2,22 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
 
-import App from './App';
-import Maincontent from './Maincontent'
- 
-const items = [
-  <SidebarItem>My Cards
-  <SidebarItem href="#">Manage Cards</SidebarItem>
-  <SidebarItem>Dropped Cards</SidebarItem>
-  <SidebarItem>Picked Cards</SidebarItem>
-  </SidebarItem>,
-  <SidebarItem>My Account
-  <SidebarItem>My Profile</SidebarItem>
-  <SidebarItem>Messages</SidebarItem>
-  <SidebarItem>Change Password</SidebarItem>
-  <SidebarItem>Logout</SidebarItem>
-  </SidebarItem>
-];
+import SearchCards from './SearchCards'
+import Profile from './Profile'
+import ManageCards from './ManageCards'
+
+import './userpage.css'
+
 const mql = window.matchMedia(`(min-width: 800px)`);
 
 
@@ -34,19 +24,49 @@ render(){
 }
 
 class Sidemenu extends React.Component {
+
+
   constructor(props) {
     super(props);
+
+   
+      console.log("From Side bar " + window.userId);
+    
+  
   
     this.state = {
       mql: mql,
       docked: props.docked,
-      open: props.open
+      open: props.open,
+      currentPath: "ManageCards"
     }
 
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+
+    this.items = [
+      <SidebarItem>My Cards
+      <SidebarItem onClick={this.myCard.bind(this)}>Manage Cards</SidebarItem>
+      <SidebarItem onClick={this.pickedCard.bind(this)}>Search Cards</SidebarItem>
+      </SidebarItem>,
+      <SidebarItem>My Account
+      <SidebarItem onClick={this.showProfile.bind(this)}>Edit Profile</SidebarItem>
+      <SidebarItem>Logout</SidebarItem>
+      </SidebarItem>
+    ];
   }
 
+  showProfile = function() {
+    this.setState({currentPath:"Profile"});
+  }
+
+  myCard = function() {
+    this.setState({currentPath:"ManageCards"});
+  }
+
+  pickedCard = function() {
+    this.setState({currentPath:"SearchCards"});
+  }
  
 
   onSetSidebarOpen = function(open) {
@@ -65,7 +85,7 @@ class Sidemenu extends React.Component {
   mediaQueryChanged = function() {
     this.setState({sidebarDocked: this.state.mql.matches});
   }
-
+ 
   render = function() {
     var sidebarContent = <b>Sidebar content</b>;
     var sidebarProps = {
@@ -74,15 +94,29 @@ class Sidemenu extends React.Component {
       onSetOpen: this.onSetSidebarOpen
     };
 
+    let currentContent = null;
+    if (this.state.currentPath==="SearchCards"){
+      currentContent = < SearchCards />
+    } else if(this.state.currentPath === "Profile") {
+      currentContent = <Profile/>
+    }
+    else if(this.state.currentPath === "ManageCards") {
+      currentContent = <ManageCards/>
+    }
+
     return (
-      <Sidebar sidebar content={items}
+      
+      <Sidebar sidebar content={this.items}
                open={this.state.sidebarOpen}
                docked={this.state.sidebarDocked}
                onSetOpen={this.onSetSidebarOpen}
-               background="#3949AB"
+               background="#013A6B"
                >
-        <b>main content</b>
-        < Maincontent />
+        <br></br>
+        <br></br><br></br>
+        {currentContent}
+        
+        
       </Sidebar>
     );
   }
