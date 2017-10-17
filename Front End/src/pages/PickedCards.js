@@ -5,8 +5,9 @@ import './card.css'
 import Button from 'muicss/lib/react/button';
 
 const CardsPage = (props) => {
+
   return(
-    <div >
+
       <div class="card" >  
 
     {/*<!--Card image-->
@@ -37,7 +38,6 @@ const CardsPage = (props) => {
     </div>
 
 </div>
-    </div>
   )
 };
 

@@ -4,7 +4,54 @@ import './card.css'
 
 import Button from 'muicss/lib/react/button';
 
-const CardsPage = (props) => {
+class CardsPage extends React.Component{
+  constructor(props){
+		super(props);
+    }
+
+  dropCardOne = function() {
+    var drop = {
+      userId: window.userId,
+      expire_code : 0,
+      location :[0,0]
+    }
+    var xhr = new XMLHttpRequest();
+		xhr.open("POST", "http://carddrop.herokuapp.com/api/drops", true);
+		xhr.setRequestHeader("Content-Type","application/json");
+		xhr.setRequestHeader("Access-Control-Allow-Origin","*");		
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) {
+          console.log("dropped");
+        }
+				}
+			}
+		xhr.send(JSON.stringify(drop));
+  }
+
+  dropCardTwo = function() {
+    var drop = {
+      userId:window.userId,
+      expire_code : 1,
+      location :[0,0]
+    }
+    var xhr = new XMLHttpRequest();
+		xhr.open("POST", "http://carddrop.herokuapp.com/api/drops", true);
+		xhr.setRequestHeader("Content-Type","application/json");
+		xhr.setRequestHeader("Access-Control-Allow-Origin","*");		
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) {
+          console.log("dropped");
+        }
+				}
+			}
+		xhr.send(JSON.stringify(drop));
+  }
+
+
+render() {
+
   return(
     <div >
       <div class="card" >  
@@ -29,15 +76,16 @@ const CardsPage = (props) => {
         <p class="card-text">
             <span class="glyphicon glyphicon-home"></span> Address</p>
         */}
-        <span > Drop 
-        <Button id="btn1" style={{margin :"10px"}} className="mui-btn mui-btn--primary">5 min</Button>
-        <Button id="btn2" className="mui-btn mui-btn--primary">1 year</Button>
-        </span>
+        <div > Drop 
+        <Button id="btn1" style={{margin :"10px"}} onClick={this.dropCardOne.bind(this)} className="mui-btn mui-btn--primary" >5 min</Button>
+        <Button id="btn2" onClick={this.dropCardTwo.bind(this)} className="mui-btn mui-btn--primary" >1 year</Button>
+        </div>
     </div>
 
     </div>
     </div>
-  )
-};
+  );
+}
+}
 
 export default CardsPage;

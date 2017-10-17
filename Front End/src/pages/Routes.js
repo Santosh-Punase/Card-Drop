@@ -2,7 +2,6 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './LoginPage';
 import User from './Sidebar';
-import Profile from './Profile';
 
 class Routes extends React.Component {
     render() {
@@ -10,8 +9,7 @@ class Routes extends React.Component {
             <Router >
                 <Switch>
                     <Route exact path='/' component={Login} />
-                    <Route exact path='/user' component={User} />                    
-                    <Route exact path='/user/profile' component={Profile} />
+                    <Route exact path='/user' component={User} />     
                     <Route render = { function() {
                         return <h1>Not Found</h1>
                     }} />

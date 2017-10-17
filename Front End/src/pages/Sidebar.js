@@ -5,6 +5,7 @@ import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
 import SearchCards from './SearchCards'
 import Profile from './Profile'
 import ManageCards from './ManageCards'
+import Login from './LoginPage'
 
 import './userpage.css'
 
@@ -51,13 +52,16 @@ class Sidemenu extends React.Component {
       </SidebarItem>,
       <SidebarItem>My Account
       <SidebarItem onClick={this.showProfile.bind(this)}>Edit Profile</SidebarItem>
-      <SidebarItem>Logout</SidebarItem>
+      <SidebarItem onClick={this.logOut.bind(this)}>Logout</SidebarItem>
       </SidebarItem>
     ];
   }
 
   showProfile = function() {
     this.setState({currentPath:"Profile"});
+  }
+  logOut = function() {
+    this.setState({currentPath:"logout"});
   }
 
   myCard = function() {
@@ -104,7 +108,12 @@ class Sidemenu extends React.Component {
       currentContent = <ManageCards/>
     }
 
-    return (
+    if(this.state.currentPath === "logout") {
+      return <Login />
+    }
+    else
+
+    return (  
       
       <Sidebar sidebar content={this.items}
                open={this.state.sidebarOpen}

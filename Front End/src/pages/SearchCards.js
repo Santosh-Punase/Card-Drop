@@ -7,23 +7,20 @@ import CardPicked from './PickedCards';
 import Card from './MyCards';
 
 
-const wellStyles = {maxWidth: 400, margin: '0 auto 10px'};
-
-
 class Maincontent extends React.Component {
   render() {
     return (
-    <div className="container">
+    <div >
       <Container  >
         <Button className="mui-btn mui-btn--primary" size="large">
         <span class="glyphicon glyphicon-search"></span> Search nearby cards</Button>
+        <br/>
+        <div >
+         < Card />
+          <br/>
+         < Card />
+        </div>
       </Container>
-      <br/>
-      <div >
-      < Card />
-      <br/>
-      < Card />
-      </div>
     </div>
     );
   }
